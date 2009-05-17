@@ -1,0 +1,75 @@
+
+#	ÉXÉyÉAÉiÇ≠ÇÒÇPçÜ
+#
+#		By Ken/ichiro(OPA)
+
+#include "..\maker"
+
+#########################
+
+MODEL	= LARGE
+
+MACHINE	= PC98
+
+OVERLAY	= YES
+
+DEBUG	= NO
+
+CFLAGS	= 
+
+AFLAGS	= 
+
+LFLAGS	= /m
+
+TARGET	= speana.exe
+
+OBJR	= Rspeana.obj
+
+OBJO	= Ospeana1.obj Ospeana2.obj
+
+#########################
+
+#include "..\maker"
+
+#########################	Other rules
+
+Ospeana2.cpp : speanag.dmp
+
+#if 1
+speanag.dmp : speanaf3.mag speanag.mag speanab.mag $(makefile)
+	mag -c $1
+	mag -lc1 $2
+	mag -lc0 $3
+	incldump $@ /cpp/st/far /l:gdata /gr/exe /l:pdata /r/exe
+	gcls
+
+#elif 0
+speanag.dmp : oosaka.mag speanag.mag speanab.mag $(makefile)
+	mag -c $1
+	mag -lc1 $2
+	mag -lc0 $3
+	incldump $@ /cpp/st/far /l:gdata /gr/exe /l:pdata /r/exe
+	gcls
+
+#elif 0
+# for ÇrÇsÇa,onpa-shinbun,summer,1995
+speanag.dmp : kabe_a.mag speanag.mag kabe_c.mag $(makefile)
+	mag -c $1
+#	mag -lc1 $2
+	mag -lc0 $3
+	incldump $@ /cpp/st/far /l:gdata /gr/exe /l:pdata /r/exe
+	gcls
+
+#elif 0
+# for ÇrÇsÇa,onpa-shinbun,winter,1995
+speanag.dmp : kabe_2.mag speanag.mag kabe_2c.mag $(makefile)
+	mag -c $1
+	mag -lc1 $2
+	mag -lc0 $3
+	incldump $@ /cpp/st/far /l:gdata /gr/exe /l:pdata /r/exe
+	gcls
+
+#endif
+
+#########################
+
